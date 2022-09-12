@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Title = styled.h1`
@@ -10,6 +10,7 @@ const Title = styled.h1`
 
 function TrendingToday() {
   const [movieList, setMovieList] = useState([]);
+  const location = useLocation();
   useEffect(() => {
     axios
       .get(
@@ -26,7 +27,7 @@ function TrendingToday() {
       <ul>
         {movieList.map(movie => (
           <li key={movie.id}>
-            <Link to={'/movies/' + String(movie.id)}>
+            <Link to={'/movies/' + String(movie.id)} state={{ from: location }}>
               {movie.title || movie.name}
             </Link>
           </li>

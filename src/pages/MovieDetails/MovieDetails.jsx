@@ -2,6 +2,8 @@ import axios from 'axios';
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { useParams, Link, useLocation } from 'react-router-dom';
+import Cast from 'components/Cast/Cast';
+import Reviews from 'components/Reviews/Reviews';
 import styled from 'styled-components';
 
 const Img = styled.img`
@@ -38,6 +40,7 @@ function MovieDetails() {
   if (movieInfo) {
     return (
       <>
+        <Link to={location.state?.from ?? '/'}>Go back</Link>
         <Container className="container">
           {movieInfo.poster_path && (
             <Img
@@ -68,8 +71,8 @@ function MovieDetails() {
             </li>
           </ul>
         </Additional>
-        {location.pathname.includes('cast') && <div>CAST</div>}
-        {location.pathname.includes('reviews') && <div>REVIEW</div>}
+        {location.pathname.includes('cast') && <Cast />}
+        {location.pathname.includes('reviews') && <Reviews />}
       </>
     );
   }

@@ -1,10 +1,11 @@
 import axios from 'axios';
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 function SearchList({ query }) {
   const [movieList, setMovieList] = useState([]);
+  const location = useLocation();
   useEffect(() => {
     axios
       .get(
@@ -20,7 +21,9 @@ function SearchList({ query }) {
       <ul>
         {movieList.map(movie => (
           <li key={movie.id}>
-            <Link to={String(movie.id)}>{movie.title || movie.name}</Link>
+            <Link to={String(movie.id)} state={{ from: location }}>
+              {movie.title || movie.name}
+            </Link>
           </li>
         ))}
       </ul>
